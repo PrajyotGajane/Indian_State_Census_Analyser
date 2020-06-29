@@ -63,7 +63,10 @@ public class CensusAnalyserTest {
                   Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMITER_MISSING,e.type);
             }
       }
-
-
-
+      @Test
+      public void StatusStateCodeFile_ReturnsCorrectRecords() {
+            StateCensusAnalyser censusAnalyser = new StateCensusAnalyser();
+            int numOfRecords = censusAnalyser.loadIndianStateCode(INDIA_STATE_CODE_CSV_FILE_PATH);
+            Assert.assertEquals(37,numOfRecords);
+      }
 }
