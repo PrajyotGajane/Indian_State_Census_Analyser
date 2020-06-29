@@ -91,4 +91,15 @@ public class CensusAnalyserTest {
                   Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM,e.type);
             }
       }
+      @Test
+      public void givenStatesCodesCsvFile_WithIncorrectDelimiter_ShouldThrowException() {
+            try {
+                  StateCensusAnalyser censusAnalyser =  new StateCensusAnalyser();
+                  ExpectedException exceptionRule = ExpectedException.none();
+                  exceptionRule.expect(CensusAnalyserException.class);
+                  censusAnalyser.loadIndianStateCode(INDIA_STATE_CODE_CSV_FILE_PATH);
+            } catch (CensusAnalyserException e){
+                  Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMITER_MISSING,e.type);
+            }
+      }
 }
