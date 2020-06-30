@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-06-30T17:41:47" hostname="HOME" time="0.549">
+<testsuite name="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2020-06-30T18:12:18" hostname="HOME" time="1.064">
   <properties/>
-  <testcase name="StatusStateCodeFile_ReturnsCorrectRecords" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.549"/>
+  <testcase name="givenStatesCodesCsvFile_WithIncorrectDelimiter_ShouldThrowException" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.545"/>
+  <testcase name="StatusStateCodeFile_ReturnsCorrectRecords" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.155"/>
+  <testcase name="givenStatesCodeCsvFile_WithWrongFile_ShouldThrowException" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.006"/>
+  <testcase name="givenStatusCensusCsvFile_WithWrongFileType_ShouldThrowException" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.001"/>
+  <testcase name="StatusCensusCsvFile_ReturnsCorrectRecords" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.132"/>
+  <testcase name="givenStatusCensusCsvFile_WithWrongHeader_ShouldThrowException" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.103"/>
+  <testcase name="givenStatusCensusCsvFile_WithWrongFile_ShouldThrowException" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.007"/>
+  <testcase name="givenStatesCensusCsvFile_WithIncorrectDelimiter_ShouldThrowException" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.096"/>
+  <testcase name="givenStatesCodeCsvFile_WithWrongFileType_ShouldThrowException" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
