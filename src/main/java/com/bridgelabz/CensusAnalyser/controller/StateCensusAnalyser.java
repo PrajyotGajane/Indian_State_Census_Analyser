@@ -2,7 +2,10 @@ package com.bridgelabz.CensusAnalyser.controller;
 import com.bridgelabz.CensusAnalyser.exception.CensusAnalyserException;
 import com.bridgelabz.CensusAnalyser.models.CSVStateCensus;
 import com.bridgelabz.CensusAnalyser.models.CSVStateCode;
+import com.bridgelabz.CensusAnalyser.service.CSVBuilderException;
 import com.bridgelabz.CensusAnalyser.service.CSVBuilderFactory;
+import com.bridgelabz.CensusAnalyser.service.ICSVBuilder;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -32,6 +35,8 @@ public class StateCensusAnalyser {
             } catch (RuntimeException e) {
                   throw new CensusAnalyserException(e.getMessage(),
                                                     CensusAnalyserException.ExceptionType.DELIMITER_MISSING);
+            } catch (CSVBuilderException e) {
+                  throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
             }
       }
       /**
@@ -40,21 +45,20 @@ public class StateCensusAnalyser {
        * @return to total number of records
        * @throws CensusAnalyserException
        */
-      public int loadIndianStateCode(String csvFilePath) throws CensusAnalyserException {
+      public int loadIndianStateCode(String csvFilePath) {
             try (Reader readerState = Files.newBufferedReader(Paths.get(csvFilePath))) {
-                  ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-                  Iterator<CSVStateCode> stateCSVIterator = csvBuilder.
+                  //ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+                  Iterator<CSVStateCode> stateCSVIterator = CSVBuilderFactory.createCSVBuilder().
                                                             getCSVFileIterator(readerState, CSVStateCode.class);
                   return this.getCount(stateCSVIterator);
-            } catch (NoSuchFileException e) {
-                  throw new CensusAnalyserException(e.getMessage(),
-                                                    CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
             } catch (IOException e) {
                   throw new CensusAnalyserException(e.getMessage(),
                                                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
             } catch (RuntimeException e) {
                   throw new CensusAnalyserException(e.getMessage(),
                                                     CensusAnalyserException.ExceptionType.DELIMITER_MISSING);
+            } catch (CSVBuilderException e) {
+                  throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
             }
       }
       /**
