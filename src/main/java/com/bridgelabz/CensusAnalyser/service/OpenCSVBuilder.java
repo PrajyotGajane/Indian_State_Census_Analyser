@@ -1,5 +1,6 @@
 package com.bridgelabz.CensusAnalyser.service;
 
+import com.bridgelabz.CensusAnalyser.controller.ICSVBuilder;
 import com.bridgelabz.CensusAnalyser.exception.CensusAnalyserException;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -7,7 +8,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.Reader;
 import java.util.Iterator;
 
-public class OpenCSVBuider {
+public class OpenCSVBuilder <E> implements ICSVBuilder {
       /**
        * to load data from CSV data file
        * @param reader
@@ -16,7 +17,7 @@ public class OpenCSVBuider {
        * @return iterator
        * @throws CensusAnalyserException
        */
-      public <E> Iterator<E> getCSVFileIterator(Reader reader, Class csvClass) throws CensusAnalyserException{
+      public Iterator<E> getCSVFileIterator(Reader reader, Class csvClass) throws CensusAnalyserException{
             try{
                   CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
                   csvToBeanBuilder.withType(csvClass);

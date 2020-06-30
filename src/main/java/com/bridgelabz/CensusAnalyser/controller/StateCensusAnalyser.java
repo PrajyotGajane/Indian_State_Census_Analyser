@@ -2,7 +2,7 @@ package com.bridgelabz.CensusAnalyser.controller;
 import com.bridgelabz.CensusAnalyser.exception.CensusAnalyserException;
 import com.bridgelabz.CensusAnalyser.models.CSVStateCensus;
 import com.bridgelabz.CensusAnalyser.models.CSVStateCode;
-import com.bridgelabz.CensusAnalyser.service.OpenCSVBuider;
+import com.bridgelabz.CensusAnalyser.service.CSVBuilderFactory;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -19,8 +19,9 @@ public class StateCensusAnalyser {
        */
       public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
             try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
-                  Iterator<CSVStateCensus> censusCSVIterator = new OpenCSVBuider().
-                                                                   getCSVFileIterator(reader, CSVStateCensus.class);
+                  ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+                  Iterator<CSVStateCensus> censusCSVIterator = csvBuilder.
+                                                            getCSVFileIterator(reader, CSVStateCensus.class);
                   return this.getCount(censusCSVIterator);
             } catch (NoSuchFileException e) {
                   throw new CensusAnalyserException(e.getMessage(),
@@ -41,8 +42,9 @@ public class StateCensusAnalyser {
        */
       public int loadIndianStateCode(String csvFilePath) throws CensusAnalyserException {
             try (Reader readerState = Files.newBufferedReader(Paths.get(csvFilePath))) {
-                  Iterator<CSVStateCode> stateCSVIterator = new OpenCSVBuider().
-                                                                getCSVFileIterator(readerState, CSVStateCode.class);
+                  ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+                  Iterator<CSVStateCode> stateCSVIterator = csvBuilder.
+                                                            getCSVFileIterator(readerState, CSVStateCode.class);
                   return this.getCount(stateCSVIterator);
             } catch (NoSuchFileException e) {
                   throw new CensusAnalyserException(e.getMessage(),
