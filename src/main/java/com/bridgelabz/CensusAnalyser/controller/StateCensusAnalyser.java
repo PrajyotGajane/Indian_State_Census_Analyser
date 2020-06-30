@@ -11,8 +11,13 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.stream.StreamSupport;
-
 public class StateCensusAnalyser {
+      /**
+       * to load csv file data into the program
+       * @param csvFilePath
+       * @return total number of records
+       * @throws CensusAnalyserException
+       */
       public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
             try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
                   CsvToBeanBuilder<CSVStateCensus> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
@@ -32,6 +37,12 @@ public class StateCensusAnalyser {
             }
       }
 
+      /**
+       * to load csv file data into the program
+       * @param csvFilePath
+       * @return to total number of records
+       * @throws CensusAnalyserException
+       */
       public int loadIndianStateCode(String csvFilePath) throws CensusAnalyserException {
             try (Reader readerState = Files.newBufferedReader(Paths.get(csvFilePath))) {
                   CsvToBeanBuilder<CSVStateCode> csvToBeanBuilder = new CsvToBeanBuilder<>(readerState);
