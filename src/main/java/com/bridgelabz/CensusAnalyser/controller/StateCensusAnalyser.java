@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.StreamSupport;
 public class StateCensusAnalyser {
+      List<CSVStateCensus> censusCSVList;
       /**
        * to load csv file data into the program
        * @param csvFilePath
@@ -26,7 +27,7 @@ public class StateCensusAnalyser {
       public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
             try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
                   ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-                  List<CSVStateCensus> censusCSVList = csvBuilder.getCSVFileList(reader, CSVStateCensus.class);
+                 censusCSVList = csvBuilder.getCSVFileList(reader, CSVStateCensus.class);
                   return censusCSVList.size();
             } catch (NoSuchFileException e) {
                   throw new CensusAnalyserException(e.getMessage(),
@@ -52,7 +53,6 @@ public class StateCensusAnalyser {
             try (Reader readerState = Files.newBufferedReader(Paths.get(csvFilePath))) {
                   ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
                   List<CSVStateCensus> censusCSVList = csvBuilder.getCSVFileList(readerState, CSVStateCensus.class);
-                  this.sort(censusCSVList);
                   return censusCSVList.size();
             } catch (IOException e) {
                   throw new CensusAnalyserException(e.getMessage(),
@@ -65,50 +65,11 @@ public class StateCensusAnalyser {
                                                     CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
             }
       }
-      public String getStateWiseSortedCensusData(String csvFilePath) {
-            try (Reader readerState = Files.newBufferedReader(Paths.get(csvFilePath))) {
-                  ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-                  List<CSVStateCensus> censusCSVList = csvBuilder.getCSVFileList(readerState, CSVStateCensus.class);
-                  this.sort(censusCSVList);
-                  String sortedStateCensusJson = new Gson().toJson(censusCSVList);
-                  return sortedStateCensusJson;
-            } catch (IOException e) {
-                  throw new CensusAnalyserException(e.getMessage(),
-                          CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-            } catch (RuntimeException e) {
-                  throw new CensusAnalyserException(e.getMessage(),
-                          CensusAnalyserException.ExceptionType.DELIMITER_MISSING);
-            } catch (CSVBuilderException e) {
-                  throw new CensusAnalyserException(e.getMessage(),
-                          CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
-            }
-      }
-      public String getStateWiseSortedStateCodeData(String csvFilePath) {
-            try (Reader readerState = Files.newBufferedReader(Paths.get(csvFilePath))) {
-                  ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-                  List<CSVStateCode> censusCSVStateCodeList = csvBuilder.getCSVFileList(readerState, CSVStateCode.class);
-                  this.sortState(censusCSVStateCodeList);
-                  String sortedStateCensusJson = new Gson().toJson(censusCSVStateCodeList);
-                  return sortedStateCensusJson;
-            } catch (IOException e) {
-                  throw new CensusAnalyserException(e.getMessage(),
-                          CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-            } catch (RuntimeException e) {
-                  throw new CensusAnalyserException(e.getMessage(),
-                          CensusAnalyserException.ExceptionType.DELIMITER_MISSING);
-            } catch (CSVBuilderException e) {
-                  throw new CensusAnalyserException(e.getMessage(),
-                          CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
-            }
-      }
-      private void sort(List<CSVStateCensus> censusCSVList) {
+
+      public String sortByState() {
             censusCSVList.sort(((Comparator<CSVStateCensus>)
                     (census1, census2) -> census2.state.compareTo(census1.state)).reversed());
+            String sortedState = new Gson().toJson(censusCSVList);
+            return sortedState;
       }
-      private void sortState(List<CSVStateCode> censusCSVList){
-            censusCSVList.sort(((Comparator<CSVStateCode>)
-                    (census1, census2) -> census2.stateName.compareTo(census1.stateName)).reversed());
-      }
-
-
 }

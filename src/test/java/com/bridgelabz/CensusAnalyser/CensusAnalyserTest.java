@@ -93,15 +93,33 @@ public class CensusAnalyserTest {
       @Test
       public void getIndianCensusData_WhenSortedOnState_ShouldReturnSortedResult() {
             StateCensusAnalyser censusAnalyser = new StateCensusAnalyser();
-            String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            String sortedCensusData = censusAnalyser.sortByState();
             CSVStateCensus[] censusCSV = new Gson().fromJson(sortedCensusData, CSVStateCensus[].class);
             Assert.assertEquals("Andhra Pradesh", censusCSV[0].state);
       }
+//      @Test
+//      public void getIndianStateCodeData_WhenSortedOnState_ShouldReturnSortedResult() {
+//            StateCensusAnalyser censusAnalyser = new StateCensusAnalyser();
+//            String sortedCensusData = censusAnalyser.getStateWiseSortedStateCodeData(INDIA_STATE_CODE_CSV_FILE_PATH);
+//            CSVStateCode[] censusCSV = new Gson().fromJson(sortedCensusData, CSVStateCode[].class);
+//            Assert.assertEquals("Andaman and Nicobar Islands", censusCSV[0].stateName);
+//      }
       @Test
-      public void getIndianStateCodeData_WhenSortedOnState_ShouldReturnSortedResult() {
+      public void getIndianCensusData_WhenSortedOnStateByPopulation_ShouldReturnSortedResult() {
             StateCensusAnalyser censusAnalyser = new StateCensusAnalyser();
-            String sortedCensusData = censusAnalyser.getStateWiseSortedStateCodeData(INDIA_STATE_CODE_CSV_FILE_PATH);
-            CSVStateCode[] censusCSV = new Gson().fromJson(sortedCensusData, CSVStateCode[].class);
-            Assert.assertEquals("Andaman and Nicobar Islands", censusCSV[0].stateName);
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            String sortedCensusData = censusAnalyser.sortByPopulation();
+            CSVStateCensus[] censusCSV = new Gson().fromJson(sortedCensusData, CSVStateCensus[].class);
+            Assert.assertEquals(607688, (int) censusCSV[0].population);
       }
+      @Test
+      public void getIndianCensusData_WhenSortedOnStateByDensity_ShouldReturnSortedResult() {
+            StateCensusAnalyser censusAnalyser = new StateCensusAnalyser();
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            String sortedCensusData = censusAnalyser.sortByDensity();
+            CSVStateCensus[] censusCSV = new Gson().fromJson(sortedCensusData, CSVStateCensus[].class);
+            Assert.assertEquals(1102, (int) censusCSV[0].densityPerSqKm);
+      }
+
 }
