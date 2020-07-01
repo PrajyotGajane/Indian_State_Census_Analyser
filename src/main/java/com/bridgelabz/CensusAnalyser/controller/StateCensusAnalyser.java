@@ -5,7 +5,6 @@ import com.bridgelabz.CensusAnalyser.models.CSVStateCode;
 import com.bridgelabz.CensusAnalyser.service.CSVBuilderException;
 import com.bridgelabz.CensusAnalyser.service.CSVBuilderFactory;
 import com.bridgelabz.CensusAnalyser.service.ICSVBuilder;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -47,7 +46,6 @@ public class StateCensusAnalyser {
        */
       public int loadIndianStateCode(String csvFilePath) {
             try (Reader readerState = Files.newBufferedReader(Paths.get(csvFilePath))) {
-                  //ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
                   Iterator<CSVStateCode> stateCSVIterator = CSVBuilderFactory.createCSVBuilder().
                                                             getCSVFileIterator(readerState, CSVStateCode.class);
                   return this.getCount(stateCSVIterator);
