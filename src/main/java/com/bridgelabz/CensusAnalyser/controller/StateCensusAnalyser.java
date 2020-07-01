@@ -72,4 +72,12 @@ public class StateCensusAnalyser {
             String sortedState = new Gson().toJson(censusCSVList);
             return sortedState;
       }
+      public String sortByPopulation() {
+            censusCSVList.sort(((Comparator<CSVStateCensus>)
+                    (census1, census2) -> census2.population.compareTo(census1.population)).reversed());
+            String mostPopulatedState = new Gson().toJson(censusCSVList);
+            return mostPopulatedState;
+      }
+
+
 }
