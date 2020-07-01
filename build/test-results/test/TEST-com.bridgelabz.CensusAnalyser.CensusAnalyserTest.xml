@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2020-07-01T21:02:32" hostname="HOME" time="1.253">
+<testsuite name="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-07-01T21:39:27" hostname="HOME" time="0.808">
   <properties/>
-  <testcase name="givenStatesCodesCsvFile_WithIncorrectDelimiter_ShouldThrowException" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.477"/>
-  <testcase name="StatusStateCodeFile_ReturnsCorrectRecords" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.143"/>
-  <testcase name="getIndianCensusData_WhenSortedOnState_ShouldReturnSortedResult" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.212"/>
-  <testcase name="givenStatesCodeCsvFile_WithWrongFile_ShouldThrowException" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.007"/>
-  <testcase name="givenStatusCensusCsvFile_WithWrongFileType_ShouldThrowException" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.001"/>
-  <testcase name="StatusCensusCsvFile_ReturnsCorrectRecords" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.029"/>
-  <testcase name="getIndianCensusData_WhenSortedOnStateByPopulation_ShouldReturnSortedResult" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.066"/>
-  <testcase name="getIndianStateCodeData_WhenSortedOnState_ShouldReturnSortedResult" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.059"/>
-  <testcase name="givenStatusCensusCsvFile_WithWrongHeader_ShouldThrowException" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.041"/>
-  <testcase name="givenStatusCensusCsvFile_WithWrongFile_ShouldThrowException" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.001"/>
-  <testcase name="getIndianCensusData_WhenSortedOnStateByArea_ShouldReturnSortedResult" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.059"/>
-  <testcase name="givenStatesCensusCsvFile_WithIncorrectDelimiter_ShouldThrowException" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.067"/>
-  <testcase name="givenStatesCodeCsvFile_WithWrongFileType_ShouldThrowException" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.002"/>
-  <testcase name="getIndianCensusData_WhenSortedOnStateByDensity_ShouldReturnSortedResult" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.08"/>
+  <testcase name="getIndianCensusData_WhenSortedOnStateByPopulation_ShouldReturnSortedResult" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.808"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

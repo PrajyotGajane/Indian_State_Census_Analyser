@@ -13,7 +13,6 @@ public class OpenCSVBuilder <E> implements ICSVBuilder {
        * to load data from CSV data file
        * @param reader
        * @param csvClass
-       * @param <E>
        * @return iterator
        * @throws CensusAnalyserException
        */
