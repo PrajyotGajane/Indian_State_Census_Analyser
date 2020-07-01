@@ -78,6 +78,10 @@ public class StateCensusAnalyser {
             String mostPopulatedState = new Gson().toJson(censusCSVList);
             return mostPopulatedState;
       }
-
-
+      public String sortByDensity(){
+            censusCSVList.sort(((Comparator<CSVStateCensus>)
+                    (census1, census2) -> census2.densityPerSqKm.compareTo(census1.densityPerSqKm)));
+            String mostDenseState = new Gson().toJson(censusCSVList);
+            return mostDenseState;
+      }
 }
