@@ -8,7 +8,7 @@ public class CSVStateCensus {
       @CsvBindByName(column = "Population", required = false)
       public Integer population;
       @CsvBindByName(column = "AreaInSqKm", required = true)
-      public int areaInSqKm;
+      public Integer areaInSqKm;
       @CsvBindByName(column = "DensityPerSqKm", required = true)
       public Integer densityPerSqKm;
 

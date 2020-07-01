@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.stream.StreamSupport;
 public class StateCensusAnalyser {
       List<CSVStateCensus> censusCSVList;
+      List<CSVStateCode> stateCodeList;
       /**
        * to load csv file data into the program
        * @param csvFilePath
@@ -52,8 +53,8 @@ public class StateCensusAnalyser {
       public int loadIndianStateCode(String csvFilePath) {
             try (Reader readerState = Files.newBufferedReader(Paths.get(csvFilePath))) {
                   ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-                  List<CSVStateCensus> censusCSVList = csvBuilder.getCSVFileList(readerState, CSVStateCensus.class);
-                  return censusCSVList.size();
+                  stateCodeList = csvBuilder.getCSVFileList(readerState, CSVStateCode.class);
+                  return stateCodeList.size();
             } catch (IOException e) {
                   throw new CensusAnalyserException(e.getMessage(),
                                                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
@@ -65,7 +66,12 @@ public class StateCensusAnalyser {
                                                     CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
             }
       }
-
+      public String sortStateCodeByState(){
+            stateCodeList.sort(((Comparator<CSVStateCode>)
+                    (census1, census2) -> census2.stateName.compareTo(census1.stateName)).reversed());
+            String sortedState = new Gson().toJson(stateCodeList);
+            return sortedState;
+      }
       public String sortByState() {
             censusCSVList.sort(((Comparator<CSVStateCensus>)
                     (census1, census2) -> census2.state.compareTo(census1.state)).reversed());
@@ -83,5 +89,11 @@ public class StateCensusAnalyser {
                     (census1, census2) -> census2.densityPerSqKm.compareTo(census1.densityPerSqKm)));
             String mostDenseState = new Gson().toJson(censusCSVList);
             return mostDenseState;
+      }
+      public String sortByArea(){
+            censusCSVList.sort(((Comparator<CSVStateCensus>)
+                    (census1, census2) -> census2.areaInSqKm.compareTo(census1.areaInSqKm)).reversed());
+            String sortByArea = new Gson().toJson(censusCSVList);
+            return sortByArea;
       }
 }
