@@ -1,6 +1,7 @@
 package com.bridgelabz.CensusAnalyser.controller;
 import com.bridgelabz.CensusAnalyser.exception.CensusAnalyserException;
 import com.bridgelabz.CensusAnalyser.models.CSVStateCensus;
+import com.bridgelabz.CensusAnalyser.models.CSVStateCode;
 import com.bridgelabz.CensusAnalyser.service.CSVBuilderException;
 import com.bridgelabz.CensusAnalyser.service.CSVBuilderFactory;
 import com.bridgelabz.CensusAnalyser.service.ICSVBuilder;
@@ -11,7 +12,6 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -52,6 +52,7 @@ public class StateCensusAnalyser {
             try (Reader readerState = Files.newBufferedReader(Paths.get(csvFilePath))) {
                   ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
                   List<CSVStateCensus> censusCSVList = csvBuilder.getCSVFileList(readerState, CSVStateCensus.class);
+                  this.sort(censusCSVList);
                   return censusCSVList.size();
             } catch (IOException e) {
                   throw new CensusAnalyserException(e.getMessage(),
@@ -64,25 +65,11 @@ public class StateCensusAnalyser {
                                                     CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
             }
       }
-      /**
-       * returns the number of entries in the CSV data file
-       * @param iterator
-       * @param <E>
-       * @return numOfEnteries
-       */
-      private <E> int getCount(Iterator<E> iterator){
-            Iterable<E> csvIterable = () -> iterator;
-            int numOfEnteries = (int) StreamSupport.stream(csvIterable.spliterator(), false)
-                    .count();
-            return numOfEnteries;
-      }
-
       public String getStateWiseSortedCensusData(String csvFilePath) {
             try (Reader readerState = Files.newBufferedReader(Paths.get(csvFilePath))) {
                   ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
                   List<CSVStateCensus> censusCSVList = csvBuilder.getCSVFileList(readerState, CSVStateCensus.class);
-                  Comparator<CSVStateCensus> censusComparator = Comparator.comparing(census -> census.state);
-                  this.sort(censusCSVList, censusComparator);
+                  this.sort(censusCSVList);
                   String sortedStateCensusJson = new Gson().toJson(censusCSVList);
                   return sortedStateCensusJson;
             } catch (IOException e) {
@@ -96,19 +83,32 @@ public class StateCensusAnalyser {
                           CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
             }
       }
-
-      private void sort(List<CSVStateCensus> censusCSVList, Comparator<CSVStateCensus> censusComparator) {
-
-            for (int i =0; i<censusCSVList.size(); i++){
-                  for (int j= 0; j < censusCSVList.size() -i -j; j++){
-                        CSVStateCensus census1= censusCSVList.get(j);
-                        CSVStateCensus census2= censusCSVList.get(j+1);
-                        if (censusComparator.compare(census1,census2) > 0){
-                              censusCSVList.set(j, census2);
-                              censusCSVList.set(j+1,census1);
-                        }
-                  }
+      public String getStateWiseSortedStateCodeData(String csvFilePath) {
+            try (Reader readerState = Files.newBufferedReader(Paths.get(csvFilePath))) {
+                  ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+                  List<CSVStateCode> censusCSVStateCodeList = csvBuilder.getCSVFileList(readerState, CSVStateCode.class);
+                  this.sortState(censusCSVStateCodeList);
+                  String sortedStateCensusJson = new Gson().toJson(censusCSVStateCodeList);
+                  return sortedStateCensusJson;
+            } catch (IOException e) {
+                  throw new CensusAnalyserException(e.getMessage(),
+                          CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+            } catch (RuntimeException e) {
+                  throw new CensusAnalyserException(e.getMessage(),
+                          CensusAnalyserException.ExceptionType.DELIMITER_MISSING);
+            } catch (CSVBuilderException e) {
+                  throw new CensusAnalyserException(e.getMessage(),
+                          CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
             }
       }
+      private void sort(List<CSVStateCensus> censusCSVList) {
+            censusCSVList.sort(((Comparator<CSVStateCensus>)
+                    (census1, census2) -> census2.state.compareTo(census1.state)).reversed());
+      }
+      private void sortState(List<CSVStateCode> censusCSVList){
+            censusCSVList.sort(((Comparator<CSVStateCode>)
+                    (census1, census2) -> census2.stateName.compareTo(census1.stateName)).reversed());
+      }
+
 
 }
