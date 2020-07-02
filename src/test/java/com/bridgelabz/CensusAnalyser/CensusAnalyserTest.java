@@ -2,6 +2,7 @@ package com.bridgelabz.CensusAnalyser;
 import com.bridgelabz.CensusAnalyser.controller.StateCensusAnalyser;
 import com.bridgelabz.CensusAnalyser.exception.CensusAnalyserException;
 import com.bridgelabz.CensusAnalyser.models.CSVStateCensus;
+import com.bridgelabz.CensusAnalyser.models.CSVStateCensusDAO;
 import com.bridgelabz.CensusAnalyser.models.CSVStateCode;
 import com.google.gson.Gson;
 import org.junit.Assert;
@@ -118,8 +119,8 @@ public class CensusAnalyserTest {
             StateCensusAnalyser censusAnalyser = new StateCensusAnalyser();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             String sortedCensusData = censusAnalyser.sortByDensity();
-            CSVStateCensus[] censusCSV = new Gson().fromJson(sortedCensusData, CSVStateCensus[].class);
-            Assert.assertEquals(1102, (int) censusCSV[0].densityPerSqKm);
+            CSVStateCensusDAO[] censusCSV = new Gson().fromJson(sortedCensusData, CSVStateCensusDAO[].class);
+            Assert.assertEquals(1102, (int) censusCSV[0].density);
       }
       @Test
       public void getIndianCensusData_WhenSortedOnStateByArea_ShouldReturnSortedResult() {
