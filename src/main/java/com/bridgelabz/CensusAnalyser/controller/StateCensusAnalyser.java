@@ -3,13 +3,13 @@ import com.bridgelabz.CensusAnalyser.exception.CensusAnalyserException;
 import com.bridgelabz.CensusAnalyser.models.CSVStateCensus;
 import com.bridgelabz.CensusAnalyser.models.CSVStateCensusDAO;
 import com.bridgelabz.CensusAnalyser.models.CSVStateCode;
+import com.bridgelabz.CensusAnalyser.models.CSVStateCodeDAO;
 import com.bridgelabz.CensusAnalyser.service.CSVBuilderException;
 import com.bridgelabz.CensusAnalyser.service.CSVBuilderFactory;
 import com.bridgelabz.CensusAnalyser.service.ICSVBuilder;
 import com.google.gson.Gson;
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,8 +17,8 @@ import java.util.Iterator;
 import java.util.List;
 public class StateCensusAnalyser {
       private static final String SAMPLE_JSON_FILE_PATH = "./json-user.json";
-      List<CSVStateCensusDAO> censusList = null;
-      List<CSVStateCode> stateCodeList = null;
+      List<CSVStateCensusDAO> censusList;
+      List<CSVStateCodeDAO> stateCodeList;
       public StateCensusAnalyser(){
             this.censusList = new ArrayList<>();
             this.stateCodeList = new ArrayList<>();
@@ -38,9 +38,6 @@ public class StateCensusAnalyser {
                         this.censusList.add(new CSVStateCensusDAO(censusIterator.next()));
                   }
                   return censusList.size();
-            } catch (NoSuchFileException e) {
-                  throw new CensusAnalyserException(e.getMessage(),
-                                                    CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
             } catch (IOException e) {
                   throw new CensusAnalyserException(e.getMessage(),
                                                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
@@ -62,8 +59,12 @@ public class StateCensusAnalyser {
        */
       public int loadIndianStateCode(String csvFilePath) {
             try (Reader readerState = Files.newBufferedReader(Paths.get(csvFilePath))) {
-                  ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-                  stateCodeList = csvBuilder.getCSVFileList(readerState, CSVStateCode.class);
+                  Iterator<CSVStateCode> stateCodeIterator = CSVBuilderFactory.createCSVBuilder()
+                          .getCSVFileIterator(readerState, CSVStateCode.class);
+                  while (stateCodeIterator.hasNext())
+                  {
+                        this.stateCodeList.add(new CSVStateCodeDAO(stateCodeIterator.next()));
+                  }
                   return stateCodeList.size();
             } catch (IOException e) {
                   throw new CensusAnalyserException(e.getMessage(),
@@ -81,8 +82,8 @@ public class StateCensusAnalyser {
        * @return sortedState
        */
       public String sortStateCodeByState(){
-            stateCodeList.sort(((Comparator<CSVStateCode>)
-                    (census1, census2) -> census2.stateName.compareTo(census1.stateName)).reversed());
+            stateCodeList.sort(((Comparator<CSVStateCodeDAO>)
+                    (census1, census2) -> census2.state.compareTo(census1.state)).reversed());
             String sortedState = new Gson().toJson(stateCodeList);
             return sortedState;
       }
