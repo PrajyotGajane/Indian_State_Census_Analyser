@@ -1,9 +1,6 @@
 package com.bridgelabz.CensusAnalyser.controller;
 import com.bridgelabz.CensusAnalyser.exception.CensusAnalyserException;
-import com.bridgelabz.CensusAnalyser.models.CSVStateCensus;
-import com.bridgelabz.CensusAnalyser.models.CSVStateCensusDAO;
-import com.bridgelabz.CensusAnalyser.models.CSVStateCode;
-import com.bridgelabz.CensusAnalyser.models.CSVStateCodeDAO;
+import com.bridgelabz.CensusAnalyser.models.*;
 import com.bridgelabz.CensusAnalyser.service.CSVBuilderException;
 import com.bridgelabz.CensusAnalyser.service.CSVBuilderFactory;
 import com.bridgelabz.CensusAnalyser.service.ICSVBuilder;
@@ -18,6 +15,7 @@ public class StateCensusAnalyser {
       private static final String SAMPLE_JSON_FILE_PATH = "./json-user.json";
       List<CSVStateCensusDAO> censusList;
       List<CSVStateCodeDAO> stateCodeList;
+      List<USCensusDAO> usCensusList;
       HashMap<String, CSVStateCensusDAO> censusCSVMap = new LinkedHashMap<>();
       public StateCensusAnalyser(){
             this.censusList = new ArrayList<>();
@@ -75,6 +73,27 @@ public class StateCensusAnalyser {
             } catch (CSVBuilderException e) {
                   throw new CensusAnalyserException(e.getMessage(),
                                                     CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
+            }
+      }
+
+      /**
+       * to load US census data csv file into the program
+       * @param csvFilePath
+       * @return
+       * @throws CensusAnalyserException
+       */
+      public int loadUSCensusData(String csvFilePath) throws CSVBuilderException {
+            try(Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
+
+                  ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+                  usCensusList = csvBuilder.getCSVFileList(reader, USCensus.class);
+                  return usCensusList.size();
+            }catch (IOException e) {
+                  throw new CensusAnalyserException("Wrong File Path or Wrong Extension",
+                          CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+            } catch (CSVBuilderException e) {
+                  throw new CensusAnalyserException(e.getMessage(),
+                          CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
             }
       }
       /**
