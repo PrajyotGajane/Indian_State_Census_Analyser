@@ -11,18 +11,19 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.StreamSupport;
+
 public class StateCensusAnalyser {
       private static final String SAMPLE_JSON_FILE_PATH = "./json-user.json";
       List<CSVStateCensusDAO> censusList;
       List<CSVStateCodeDAO> stateCodeList;
+      HashMap<String, CSVStateCensusDAO> censusCSVMap = new LinkedHashMap<>();
       public StateCensusAnalyser(){
             this.censusList = new ArrayList<>();
             this.stateCodeList = new ArrayList<>();
       }
+
       /**
        * to load csv file data into the program
        * @param csvFilePath
@@ -33,11 +34,10 @@ public class StateCensusAnalyser {
             try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
                   Iterator<CSVStateCensus> censusIterator = CSVBuilderFactory.createCSVBuilder()
                           .getCSVFileIterator(reader, CSVStateCensus.class);
-                  while (censusIterator.hasNext())
-                  {
-                        this.censusList.add(new CSVStateCensusDAO(censusIterator.next()));
-                  }
-                  return censusList.size();
+                  Iterable<CSVStateCensus> csvStateCensusIterable = () -> censusIterator;
+                  StreamSupport.stream(csvStateCensusIterable.spliterator(), false)
+                          .forEach(csvCensus -> censusCSVMap.put(csvCensus.state, new CSVStateCensusDAO(csvCensus)));
+                  return censusCSVMap.size();
             } catch (IOException e) {
                   throw new CensusAnalyserException(e.getMessage(),
                                                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
@@ -92,10 +92,8 @@ public class StateCensusAnalyser {
        * @return sortedState
        */
       public String sortByState() {
-            censusList.sort(((Comparator<CSVStateCensusDAO>)
-                    (census1, census2) -> census2.state.compareTo(census1.state)).reversed());
-            String sortedState = new Gson().toJson(censusList);
-            return sortedState;
+            SortedSet<String> sortMap = new TreeSet<>(censusCSVMap.keySet());
+            return sortMap.first();
       }
       /**
        * to sort by population
