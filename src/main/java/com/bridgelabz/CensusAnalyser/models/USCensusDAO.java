@@ -1,12 +1,12 @@
 package com.bridgelabz.CensusAnalyser.models;
 public class USCensusDAO {
-      public Integer area;
+      public Double area;
       public String stateId;
       public Integer population;
-      public Integer housingDensity;
-      public Integer populationDensity;
-      public Integer landArea;
-      public Integer waterArea;
+      public Double housingDensity;
+      public Double populationDensity;
+      public Double landArea;
+      public Double waterArea;
       public Integer housingUnits;
       public String state;
       public USCensusDAO(USCensus usCensus) {

@@ -10,15 +10,15 @@ public class USCensus {
       @CsvBindByName(column = "Housing units", required = true)
       public Integer housingUnits;
       @CsvBindByName(column = "Total area", required = true)
-      public Integer area;
+      public Double area;
       @CsvBindByName(column = "Water area", required = true)
-      public Integer waterArea;
+      public Double waterArea;
       @CsvBindByName(column = "Land area", required = true)
-      public Integer landArea;
+      public Double landArea;
       @CsvBindByName(column = "Population Density", required = true)
-      public Integer populationDensity;
+      public Double populationDensity;
       @CsvBindByName(column = "Housing Density", required = true)
-      public Integer housingDensity;
+      public Double housingDensity;
       @Override
       public String toString() {
             return "USCensus{" +

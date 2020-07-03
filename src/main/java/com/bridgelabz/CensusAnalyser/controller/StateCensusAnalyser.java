@@ -33,6 +33,8 @@ public class StateCensusAnalyser {
                   Iterator<CSVStateCensus> censusIterator = CSVBuilderFactory.createCSVBuilder()
                           .getCSVFileIterator(reader, CSVStateCensus.class);
                   Iterable<CSVStateCensus> csvStateCensusIterable = () -> censusIterator;
+                  StreamSupport.stream(csvStateCensusIterable.spliterator(),false)
+                          .forEach(csvCensus -> censusList.add(new CSVStateCensusDAO(csvCensus)));
                   StreamSupport.stream(csvStateCensusIterable.spliterator(), false)
                           .forEach(csvCensus -> censusCSVMap.put(csvCensus.state, new CSVStateCensusDAO(csvCensus)));
                   return censusCSVMap.size();
@@ -82,15 +84,21 @@ public class StateCensusAnalyser {
        * @return
        * @throws CensusAnalyserException
        */
-      public int loadUSCensusData(String csvFilePath) throws CSVBuilderException {
+      public int loadUSCensusData(String csvFilePath) {
             try(Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
-
-                  ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-                  usCensusList = csvBuilder.getCSVFileList(reader, USCensus.class);
+                  Iterator<USCensus> usCensusIterator = CSVBuilderFactory.createCSVBuilder()
+                          .getCSVFileIterator(reader, USCensus.class);
+                  while (usCensusIterator.hasNext())
+                  {
+                        this.usCensusList.add(new USCensusDAO(usCensusIterator.next()));
+                  }
                   return usCensusList.size();
             }catch (IOException e) {
-                  throw new CensusAnalyserException("Wrong File Path or Wrong Extension",
+                  throw new CensusAnalyserException(e.getMessage(),
                           CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+            } catch (RuntimeException e) {
+                  throw new CensusAnalyserException(e.getMessage(),
+                          CensusAnalyserException.ExceptionType.DELIMITER_MISSING);
             } catch (CSVBuilderException e) {
                   throw new CensusAnalyserException(e.getMessage(),
                           CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
@@ -124,6 +132,15 @@ public class StateCensusAnalyser {
             return mostPopulatedState;
       }
       /**
+       * to sort US csv by population
+       * @return mostPopulatedState
+       */
+      public String sortUSByPopulation() {
+            usCensusList.sort(((census1, census2) -> census2.population.compareTo(census1.population)));
+            String mostPopulatedState = new Gson().toJson(censusList);
+            return mostPopulatedState;
+      }
+      /**
        * to sort by state density
        * @return mostDenseState
        */
@@ -145,16 +162,17 @@ public class StateCensusAnalyser {
        * to create a json file with sorted State with Area
        * @param csvFilePath
        */
-      public void jsonFileWriter(String csvFilePath){
-            try(Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))){
-                  ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-                  censusList = csvBuilder.getCSVFileList(reader, CSVStateCensus.class);
-                  FileWriter writer = new FileWriter(SAMPLE_JSON_FILE_PATH);
-                  writer.write(sortByArea());
-                  writer.close();
-            } catch (IOException | CSVBuilderException e) {
-                  throw new CensusAnalyserException(e.getMessage(),
-                          CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-            }
-      }
+//      public void jsonFileWriter(String csvFilePath){
+//            try(Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))){
+//                  ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+//                  censusList = csvBuilder.getCSVFileList(reader, CSVStateCensus.class);
+//                  FileWriter writer = new FileWriter(SAMPLE_JSON_FILE_PATH);
+//                  Gson json = new Gson().toJson()
+//                  writer.write();
+//                  writer.close();
+//            } catch (IOException | CSVBuilderException e) {
+//                  throw new CensusAnalyserException(e.getMessage(),
+//                          CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+//            }
+//      }
 }
