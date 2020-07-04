@@ -1,7 +1,5 @@
 package com.bridgelabz.CensusAnalyser.service;
 
-import com.bridgelabz.CensusAnalyser.exception.CensusAnalyserException;
-
 import java.io.Reader;
 import java.util.Iterator;
 import java.util.List;

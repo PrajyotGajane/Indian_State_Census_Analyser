@@ -23,14 +23,14 @@ public class USCensus {
       public String toString() {
             return "USCensus{" +
                     "stateId='" + stateId + '\'' +
-                    ", state=" + state + '\'' +
-                    ", population=" + population + '\'' +
-                    ", housingUnits=" + housingUnits + '\'' +
-                    ", area=" + area + '\'' +
-                    ", waterArea=" + waterArea + '\'' +
-                    ", landArea=" + landArea + '\'' +
-                    ", populationDensity=" + populationDensity + '\'' +
-                    ", housingDensity=" + housingDensity + '\'' +
+                    ", state='" + state + '\'' +
+                    ", population='" + population + '\'' +
+                    ", housingUnits='" + housingUnits + '\'' +
+                    ", area='" + area + '\'' +
+                    ", waterArea='" + waterArea + '\'' +
+                    ", landArea='" + landArea + '\'' +
+                    ", populationDensity='" + populationDensity + '\'' +
+                    ", housingDensity='" + housingDensity + '\'' +
                     '}';
       }
 }

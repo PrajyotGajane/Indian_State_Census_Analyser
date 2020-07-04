@@ -7,10 +7,10 @@ public class CSVStateCodeDAO {
       public String state;
 
       public CSVStateCodeDAO(CSVStateCode stateCodeCSV){
+            srNo = stateCodeCSV.srNo;
             state = stateCodeCSV.stateName;
             tin = stateCodeCSV.tin;
-            srNo = stateCodeCSV.srNo;
             stateCode = stateCodeCSV.stateCode;
-
       }
+
 }
