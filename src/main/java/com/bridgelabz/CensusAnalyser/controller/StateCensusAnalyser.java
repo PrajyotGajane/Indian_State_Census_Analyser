@@ -11,7 +11,6 @@ import java.util.*;
 import java.util.stream.StreamSupport;
 
 public class StateCensusAnalyser {
-      private static final String SAMPLE_JSON_FILE_PATH = "./json-user.json";
       List<CSVStateCensusDAO> censusList;
       List<CSVStateCodeDAO> stateCodeList;
       List<USCensusDAO> usCensusList;
@@ -104,7 +103,7 @@ public class StateCensusAnalyser {
        * to sort alphabetically by state name for IndiaStateCode.csv
        * @return sortedState
        */
-      public String sortStateCodeByState(){
+      public String sortStateCodeByState() {
             stateCodeList.sort(((Comparator<CSVStateCodeDAO>)
                     (census1, census2) -> census2.state.compareTo(census1.state)).reversed());
             String sortedState = new Gson().toJson(stateCodeList);
@@ -115,8 +114,10 @@ public class StateCensusAnalyser {
        * @return sortedState
        */
       public String sortByState() {
-            SortedSet<String> sortMap = new TreeSet<>(censusCSVMap.keySet());
-            return sortMap.first();
+            censusList.sort(((Comparator<CSVStateCensusDAO>)
+                    (census1, census2) -> census2.state.compareTo(census1.state)).reversed());
+            String sortedState = new Gson().toJson(censusList);
+            return sortedState;
       }
       /**
        * to sort by population
@@ -145,7 +146,7 @@ public class StateCensusAnalyser {
        * to sort by state density
        * @return mostDenseState
        */
-      public String sortByDensity(){
+      public String sortByDensity() {
             censusList.sort(((census1, census2) -> census2.density.compareTo(census1.density)));
             String mostDenseState = new Gson().toJson(censusList);
             return mostDenseState;
@@ -154,7 +155,7 @@ public class StateCensusAnalyser {
        * to sort state by area
        * @return sortByArea
        */
-      public String sortByArea(){
+      public String sortByArea() {
             censusList.sort(((census1, census2) -> census2.areaInSqKm.compareTo(census1.areaInSqKm)));
             String sortByArea = new Gson().toJson(censusList);
             return sortByArea;
@@ -169,17 +170,14 @@ public class StateCensusAnalyser {
        * to create a json file with sorted State with Area
        * @param csvFilePath
        */
-//      public void jsonFileWriter(String csvFilePath){
-//            try(Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))){
-//                  ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-//                  censusList = csvBuilder.getCSVFileList(reader, CSVStateCensus.class);
-//                  FileWriter writer = new FileWriter(SAMPLE_JSON_FILE_PATH);
-//                  Gson json = new Gson().toJson(sortByArea());
-//                  writer.write(json);
-//                  writer.close();
-//            } catch (IOException | CSVBuilderException e) {
-//                  throw new CensusAnalyserException(e.getMessage(),
-//                          CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-//            }
-//      }
+      public void jsonFileWriter(String csvFilePath, String json) {
+            FileWriter writer;
+            try {
+                  writer = new FileWriter(csvFilePath);
+                  writer.write(json);
+                  writer.close();
+            } catch (IOException e) {
+                  e.printStackTrace();
+            }
+      }
 }
