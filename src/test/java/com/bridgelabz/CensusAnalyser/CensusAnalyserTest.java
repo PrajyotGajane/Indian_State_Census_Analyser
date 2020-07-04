@@ -143,5 +143,12 @@ public class CensusAnalyserTest {
             int numOfRecords = censusAnalyser.loadUSCensusData(US_CENSUS_CSV_FILE_PATH);
             Assert.assertEquals(51, numOfRecords);
       }
-
+      @Test
+      public void getUSCensusData_WhenSortedOnStateByPopulation_ShouldReturnSortedResult() {
+            StateCensusAnalyser censusAnalyser = new StateCensusAnalyser();
+            censusAnalyser.loadUSCensusData(US_CENSUS_CSV_FILE_PATH);
+            String sortedCensusData = censusAnalyser.sortUSByPopulation();
+            USCensusDAO[] censusCSV = new Gson().fromJson(sortedCensusData, USCensusDAO[].class);
+            Assert.assertEquals((Integer) 37253956, censusCSV[0].population);
+      }
 }
