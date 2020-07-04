@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.StreamSupport;
-
 public class StateCensusAnalyser {
       List<CSVStateCensusDAO> censusList;
       List<CSVStateCodeDAO> stateCodeList;
@@ -20,7 +19,6 @@ public class StateCensusAnalyser {
             this.stateCodeList = new ArrayList<>();
             this.usCensusList = new ArrayList<>();
       }
-
       /**
        * to load csv file data into the program
        * @param csvFilePath
@@ -167,7 +165,7 @@ public class StateCensusAnalyser {
             return mostPopulatedState;
       }
       /**
-       * to create a json file with sorted State with Area
+       * to create a json file with passed file path and sorted string
        * @param csvFilePath
        */
       public void jsonFileWriter(String csvFilePath, String json) {
