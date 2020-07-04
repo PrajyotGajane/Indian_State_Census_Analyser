@@ -159,6 +159,12 @@ public class StateCensusAnalyser {
             String sortByArea = new Gson().toJson(censusList);
             return sortByArea;
       }
+
+      public String sortUSByArea() {
+            usCensusList.sort(((census1, census2) -> census2.area.compareTo(census1.area)));
+            String mostPopulatedState = new Gson().toJson(usCensusList);
+            return mostPopulatedState;
+      }
       /**
        * to create a json file with sorted State with Area
        * @param csvFilePath

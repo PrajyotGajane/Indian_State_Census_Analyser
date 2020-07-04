@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-07-04T02:39:35" hostname="HOME" time="0.864">
+<testsuite name="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-07-04T02:43:47" hostname="HOME" time="0.876">
   <properties/>
-  <testcase name="getUSCensusData_WhenSortedOnStateByPopulation_ShouldReturnSortedResult" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.864"/>
+  <testcase name="getUSCensusData_WhenSortedOnStateByArea_ShouldReturnSortedResult" classname="com.bridgelabz.CensusAnalyser.CensusAnalyserTest" time="0.876"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

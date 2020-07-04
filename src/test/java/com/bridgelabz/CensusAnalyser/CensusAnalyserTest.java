@@ -151,4 +151,12 @@ public class CensusAnalyserTest {
             USCensusDAO[] censusCSV = new Gson().fromJson(sortedCensusData, USCensusDAO[].class);
             Assert.assertEquals((Integer) 37253956, censusCSV[0].population);
       }
+      @Test
+      public void getUSCensusData_WhenSortedOnStateByArea_ShouldReturnSortedResult() {
+            StateCensusAnalyser censusAnalyser = new StateCensusAnalyser();
+            censusAnalyser.loadUSCensusData(US_CENSUS_CSV_FILE_PATH);
+            String sortedCensusData = censusAnalyser.sortUSByArea();
+            USCensusDAO[] censusCSV = new Gson().fromJson(sortedCensusData, USCensusDAO[].class);
+            Assert.assertEquals((Double) 1723338.01, censusCSV[0].area);
+      }
 }
