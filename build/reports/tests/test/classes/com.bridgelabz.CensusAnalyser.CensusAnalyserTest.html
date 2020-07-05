@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">19</div>
+<div class="counter">23</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">2.708s</div>
+<div class="counter">2.682s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,97 +79,117 @@
 </thead>
 <tr>
 <td class="success">StatusCensusCsvFile_ReturnsCorrectRecords</td>
-<td class="success">0.078s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">StatusStateCodeFile_ReturnsCorrectRecords</td>
-<td class="success">0.457s</td>
+<td class="success">0.046s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">USCensusFile_ReturnsCorrectRecords</td>
-<td class="success">0.169s</td>
+<td class="success">0.191s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">getIndianCensusData_WhenSortedOnStateByArea_ShouldReturnSortedResult</td>
-<td class="success">0.061s</td>
+<td class="success">0.049s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">getIndianCensusData_WhenSortedOnStateByDensity_ShouldReturnSortedResult</td>
-<td class="success">0.050s</td>
+<td class="success">0.071s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">getIndianCensusData_WhenSortedOnStateByPopulation_ShouldReturnSortedResult</td>
-<td class="success">0.070s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">getIndianCensusData_WhenSortedOnState_ShouldReturnSortedStateResult</td>
-<td class="success">0.081s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">getIndianStateCodeData_WhenSortedOnState_ShouldReturnSortedResult</td>
-<td class="success">0.068s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">getUSCensusData_WhenSortedOnStateByArea_ShouldReturnSortedResult</td>
-<td class="success">0.262s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">getUSCensusData_WhenSortedOnStateByPopulationDensity_ShouldReturnSortedResult</td>
-<td class="success">0.248s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">getUSCensusData_WhenSortedOnStateByPopulation_ShouldReturnSortedResult</td>
-<td class="success">0.217s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">givenStatesCensusCsvFile_WithIncorrectDelimiter_ShouldThrowException</td>
-<td class="success">0.005s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">givenStatesCodeCsvFile_WithWrongFileType_ShouldThrowException</td>
-<td class="success">0.064s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">givenStatesCodeCsvFile_WithWrongFile_ShouldThrowException</td>
-<td class="success">0.074s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">givenStatesCodesCsvFile_WithIncorrectDelimiter_ShouldThrowException</td>
-<td class="success">0.182s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">givenStatusCensusCsvFile_WithWrongFileType_ShouldThrowException</td>
-<td class="success">0.006s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">givenStatusCensusCsvFile_WithWrongFile_ShouldThrowException</td>
-<td class="success">0.008s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">givenStatusCensusCsvFile_WithWrongHeader_ShouldThrowException</td>
 <td class="success">0.056s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
+<td class="success">getIndianCensusData_WhenSortedOnState_ShouldReturnSortedStateResult</td>
+<td class="success">0.079s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getIndianStateCodeData_WhenSortedOnStateCode_ShouldReturnSortedResult</td>
+<td class="success">0.079s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getIndianStateCodeData_WhenSortedOnState_ShouldReturnSortedResult</td>
+<td class="success">0.071s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getUSCensusData_WhenSortedOnStateByArea_ShouldReturnSortedResult</td>
+<td class="success">0.167s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getUSCensusData_WhenSortedOnStateByPopulationDensity_ShouldReturnSortedResult</td>
+<td class="success">0.217s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getUSCensusData_WhenSortedOnStateByPopulation_ShouldReturnSortedResult</td>
+<td class="success">0.170s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenIndiaCensusCsvFile_WithIncorrectDelimiter_ShouldThrowException</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenIndiaCensusCsvFile_WithWrongFilePath_ShouldThrowException</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenIndiaCensusCsvFile_WithWrongFileType_ShouldThrowException</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenIndiaCensusCsvFile_WithWrongHeader_ShouldThrowException</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenStateCodeFile_ReturnsCorrectRecords</td>
+<td class="success">0.063s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenStatesCodeCsvFile_WithWrongFileType_ShouldThrowException</td>
+<td class="success">0.076s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenStatesCodeCsvFile_WithWrongHeader_ShouldThrowException</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenStatesCodesCsvFile_WithIncorrectDelimiter_ShouldThrowException</td>
+<td class="success">0.131s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenUSCensusCsvFile_WithIncorrectDelimiter_ShouldThrowException</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenUSCensusCsvFile_WithWrongFileType_ShouldThrowException</td>
+<td class="success">0.227s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenUSCensusCsvFile_WithWrongHeader_ShouldThrowException</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
 <td class="success">givenUSCensusData_WhenSortedOnStateID_ShouldReturnSortedResult</td>
-<td class="success">0.552s</td>
+<td class="success">0.958s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -179,7 +199,11 @@
 <span class="code">
 <pre>Exception occurred:Wrong Header or Delimiter
 Exception occurred:Wrong File
+Exception occurred:Wrong Header or Delimiter
 Exception occurred:Wrong File
+Exception occurred:Wrong Header or Delimiter
+Exception occurred:Wrong Header or Delimiter
+Exception occurred:Wrong Header or Delimiter
 Exception occurred:Wrong Header or Delimiter
 </pre>
 </span>
@@ -192,7 +216,7 @@ Exception occurred:Wrong Header or Delimiter
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 6.1.1</a> at Jul 5, 2020 11:19:06 PM</p>
+<a href="http://www.gradle.org">Gradle 6.1.1</a> at Jul 6, 2020 12:43:56 AM</p>
 </div>
 </div>
 </body>

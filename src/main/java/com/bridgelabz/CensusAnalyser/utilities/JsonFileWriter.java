@@ -1,4 +1,4 @@
-package com.bridgelabz.CensusAnalyser.Utilities;
+package com.bridgelabz.CensusAnalyser.utilities;
 import java.io.FileWriter;
 import java.io.IOException;
 public class JsonFileWriter {

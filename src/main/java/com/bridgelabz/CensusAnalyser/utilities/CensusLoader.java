@@ -1,4 +1,4 @@
-package com.bridgelabz.CensusAnalyser.Utilities;
+package com.bridgelabz.CensusAnalyser.utilities;
 import com.bridgelabz.CensusAnalyser.controller.StateCensusAnalyser;
 import com.bridgelabz.CensusAnalyser.exception.CensusAnalyserException;
 import com.bridgelabz.CensusAnalyser.models.CSVStateCensus;
@@ -17,6 +17,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 public class CensusLoader {
+      /**
+       * to load census data
+       * @param country
+       * @param csvFilePath
+       * @return
+       */
       public Map<String, censusDAO> loadCensusData(StateCensusAnalyser.Country country, String... csvFilePath) {
             if (country.equals(StateCensusAnalyser.Country.INDIA))
                   return loadCensusData(CSVStateCensus.class, csvFilePath);
@@ -26,6 +32,13 @@ public class CensusLoader {
                   return loadCensusData(CSVStateCode.class, csvFilePath);
             throw new CensusAnalyserException("Invalid Country Name", CensusAnalyserException.ExceptionType.INVALID_COUNTRY);
       }
+      /**
+       * load census data according to class and file path passed
+       * @param censusCSVClass
+       * @param csvFilePath
+       * @param <E>
+       * @return loaded map
+       */
       public <E> Map<String, censusDAO> loadCensusData(Class<E> censusCSVClass, String... csvFilePath) {
             Map<String, censusDAO> censusStateMap = new HashMap<>();
             try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath[0]));) {
@@ -46,10 +59,10 @@ public class CensusLoader {
                                 .forEach(csvState -> censusStateMap.put(csvState.stateName, new censusDAO(csvState)));
                   }
                   return censusStateMap;
-            } catch (IOException | CSVBuilderException e) {
+            } catch (IOException e) {
                   throw new CensusAnalyserException("Wrong File",
                           CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-            } catch (RuntimeException e){
+            } catch (RuntimeException | CSVBuilderException e){
                 throw new CensusAnalyserException("Wrong Header or Delimiter",
                         CensusAnalyserException.ExceptionType.WRONG_HEADER_FILE_OR_DELIMITER);
             }
