@@ -7,22 +7,12 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 public class StateCensusAnalyser {
-      public enum Country {INDIA, US}
+      public enum Country {INDIA, INDIA_STATE, US}
       public enum SortField {
             population, populationDensity, state, area,stateId,areaInSqKm;
-
       }
-
       List<censusDAO> collect;
-      Map<SortField, Comparator<censusDAO>> sortMap;
       public StateCensusAnalyser() {
-            this.sortMap = new HashMap<>();
-            this.sortMap.put(SortField.state, Comparator.comparing(census -> census.state));
-            this.sortMap.put(SortField.population, Comparator.comparing(census -> census.population));
-            this.sortMap.put(SortField.populationDensity, Comparator.comparing(census -> census.populationDensity));
-            this.sortMap.put(SortField.area, Comparator.comparing(census -> census.area));
-            this.sortMap.put(SortField.areaInSqKm, Comparator.comparing(census -> census.areaInSqKm));
-            this.sortMap.put(SortField.stateId, Comparator.comparing(census -> census.stateId));
             this.collect = new ArrayList<>();
       }
       Map<String, censusDAO> censusCSVMap = new HashMap<>();
@@ -37,7 +27,7 @@ public class StateCensusAnalyser {
             return censusCSVMap.size();
       }
 
-      public String getStateWiseSortedCensusData(SortField sortField) throws NoSuchFieldException {
+      public String getStateWiseSortedCensusData(SortField sortField) {
             if (censusCSVMap == null || censusCSVMap.size() == 0) {
                   throw new CensusAnalyserException("No Census Data",
                           CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
@@ -46,7 +36,6 @@ public class StateCensusAnalyser {
             this.sortList(collect, sortField);
             String sortedStateCensusJson = new Gson().toJson(collect);
             return sortedStateCensusJson;
-
       }
       public List sortList(List listToSort, SortField fieldName) {
             listToSort.sort(Comparator.comparing(report -> {
@@ -62,14 +51,4 @@ public class StateCensusAnalyser {
        * to create a json file with passed file path and sorted string
        * @param csvFilePath
        */
-      public void jsonFileWriter(String csvFilePath, String json) {
-            FileWriter writer;
-            try {
-                  writer = new FileWriter(csvFilePath);
-                  writer.write(json);
-                  writer.close();
-            } catch (IOException e) {
-                  e.printStackTrace();
-            }
-      }
 }

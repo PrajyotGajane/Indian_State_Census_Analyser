@@ -1,8 +1,8 @@
 package com.bridgelabz.CensusAnalyser.Utilities;
-
 import com.bridgelabz.CensusAnalyser.controller.StateCensusAnalyser;
 import com.bridgelabz.CensusAnalyser.exception.CensusAnalyserException;
 import com.bridgelabz.CensusAnalyser.models.CSVStateCensus;
+import com.bridgelabz.CensusAnalyser.models.CSVStateCode;
 import com.bridgelabz.CensusAnalyser.models.USCensus;
 import com.bridgelabz.CensusAnalyser.models.censusDAO;
 import com.bridgelabz.CensusAnalyser.service.CSVBuilderException;
@@ -22,6 +22,8 @@ public class CensusLoader {
                   return loadCensusData(CSVStateCensus.class, csvFilePath);
             if (country.equals(StateCensusAnalyser.Country.US))
                   return loadCensusData(USCensus.class, csvFilePath);
+            if (country.equals(StateCensusAnalyser.Country.INDIA_STATE))
+                  return loadCensusData(CSVStateCode.class, csvFilePath);
             throw new CensusAnalyserException("Invalid Country Name", CensusAnalyserException.ExceptionType.INVALID_COUNTRY);
       }
       public <E> Map<String, censusDAO> loadCensusData(Class<E> censusCSVClass, String... csvFilePath) {
@@ -38,6 +40,10 @@ public class CensusLoader {
                         StreamSupport.stream(csvIterable.spliterator(), false)
                                 .map(USCensus.class::cast)
                                 .forEach(csvState -> censusStateMap.put(csvState.state, new censusDAO(csvState)));
+                  } else if (censusCSVClass.getName() == "com.bridgelabz.CensusAnalyser.models.CSVStateCode") {
+                        StreamSupport.stream(csvIterable.spliterator(), false)
+                                .map(CSVStateCode.class::cast)
+                                .forEach(csvState -> censusStateMap.put(csvState.stateName, new censusDAO(csvState)));
                   }
                   return censusStateMap;
             } catch (IOException | CSVBuilderException e) {

@@ -14,10 +14,9 @@ public class censusDAO {
       public Integer tin;
       public Integer srNo;
       public String stateCode;
-      public String stateName;
       public censusDAO(CSVStateCode stateCodeCSV){
             srNo = stateCodeCSV.srNo;
-            stateName = stateCodeCSV.stateName;
+            state = stateCodeCSV.stateName;
             tin = stateCodeCSV.tin;
             stateCode = stateCodeCSV.stateCode;
       }
