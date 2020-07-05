@@ -47,8 +47,11 @@ public class CensusLoader {
                   }
                   return censusStateMap;
             } catch (IOException | CSVBuilderException e) {
-                  throw new CensusAnalyserException(e.getMessage(),
+                  throw new CensusAnalyserException("Wrong File",
                           CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+            } catch (RuntimeException e){
+                throw new CensusAnalyserException("Wrong Header or Delimiter",
+                        CensusAnalyserException.ExceptionType.WRONG_HEADER_FILE_OR_DELIMITER);
             }
       }
 }
