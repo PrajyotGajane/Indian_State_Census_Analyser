@@ -2,13 +2,12 @@ package com.bridgelabz.CensusAnalyser.models;
 
 public class censusDAO {
       public Integer areaInSqKm;
-      public Integer density;
       public Integer population;
       public String state;
       public censusDAO(CSVStateCensus indiaCensusCSV){
             state = indiaCensusCSV.state;
             areaInSqKm = indiaCensusCSV.areaInSqKm;
-            density = indiaCensusCSV.densityPerSqKm;
+            populationDensity = indiaCensusCSV.densityPerSqKm;
             population = indiaCensusCSV.population;
       }
 
@@ -24,7 +23,6 @@ public class censusDAO {
       }
       public Double area;
       public String stateId;
-      public Integer populationUS;
       public Double housingDensity;
       public Double populationDensity;
       public Double landArea;
@@ -34,7 +32,7 @@ public class censusDAO {
       public censusDAO(USCensus usCensus) {
             stateId = usCensus.stateId;
             stateNameUS = usCensus.state;
-            populationUS = usCensus.population;
+            population = usCensus.population;
             housingUnits = usCensus.housingUnits;
             area = usCensus.area;
             waterArea = usCensus.waterArea;

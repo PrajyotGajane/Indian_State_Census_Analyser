@@ -8,7 +8,6 @@ import com.bridgelabz.CensusAnalyser.models.censusDAO;
 import com.bridgelabz.CensusAnalyser.service.CSVBuilderException;
 import com.bridgelabz.CensusAnalyser.service.CSVBuilderFactory;
 import com.bridgelabz.CensusAnalyser.service.ICSVBuilder;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -17,7 +16,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.StreamSupport;
-
 public class CensusLoader {
       public Map<String, censusDAO> loadCensusData(StateCensusAnalyser.Country country, String... csvFilePath) {
             if (country.equals(StateCensusAnalyser.Country.INDIA))
