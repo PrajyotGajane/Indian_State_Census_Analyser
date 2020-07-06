@@ -18,4 +18,14 @@ public class CSVStateCensus {
                     ", DensityPerSqKm='" + densityPerSqKm + '\'' +
                     '}';
       }
+
+      public CSVStateCensus() {
+      }
+            public CSVStateCensus(String state,Integer population,Integer areaInSqKm ,Double densityPerSqKm){
+            this.state = state;
+            this.population = population;
+            this.areaInSqKm = areaInSqKm;
+            this.densityPerSqKm = densityPerSqKm;
+
+      }
 }
