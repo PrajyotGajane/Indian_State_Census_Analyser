@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 public class StateCensusAnalyser {
-      public enum Country {INDIA, INDIA_STATE, US}
+      public enum Country {INDIA, US}
       List<censusDAO> collect;
       Map<String, censusDAO> censusCSVMap = new HashMap<>();
       public StateCensusAnalyser() {

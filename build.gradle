@@ -19,4 +19,5 @@ dependencies {
     compile "com.opencsv:opencsv:4.0"
     compile 'org.apache.commons:commons-csv:1.8'
     compile fileTree(dir: 'out', include: ['*.jar'])
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.1.0'
 }
