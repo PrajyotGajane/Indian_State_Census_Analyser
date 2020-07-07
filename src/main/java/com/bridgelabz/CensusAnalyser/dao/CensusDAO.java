@@ -1,8 +1,11 @@
-package com.bridgelabz.CensusAnalyser.models;
+package com.bridgelabz.CensusAnalyser.dao;
 
 import com.bridgelabz.CensusAnalyser.controller.StateCensusAnalyser;
+import com.bridgelabz.CensusAnalyser.models.CSVStateCensus;
+import com.bridgelabz.CensusAnalyser.models.CSVStateCode;
+import com.bridgelabz.CensusAnalyser.models.USCensus;
 
-public class censusDAO {
+public class CensusDAO {
       public Double densityPerSqKm;
       public Integer areaInSqKm;
       public Integer population;
@@ -18,20 +21,19 @@ public class censusDAO {
       public Double waterArea;
       public Integer housingUnits;
 
-      public censusDAO(CSVStateCensus indiaCensusCSV){
+      public CensusDAO(CSVStateCensus indiaCensusCSV){
             state = indiaCensusCSV.state;
             areaInSqKm = indiaCensusCSV.areaInSqKm;
-            //populationDensity = indiaCensusCSV.densityPerSqKm;
             densityPerSqKm = indiaCensusCSV.densityPerSqKm;
             population = indiaCensusCSV.population;
       }
-      public censusDAO(CSVStateCode stateCodeCSV){
+      public CensusDAO(CSVStateCode stateCodeCSV){
             srNo = stateCodeCSV.srNo;
             state = stateCodeCSV.stateName;
             tin = stateCodeCSV.tin;
             stateCode = stateCodeCSV.stateCode;
       }
-      public censusDAO(USCensus usCensus) {
+      public CensusDAO(USCensus usCensus) {
             stateId = usCensus.stateId;
             state = usCensus.state;
             population = usCensus.population;
@@ -42,7 +44,7 @@ public class censusDAO {
             populationDensity = usCensus.populationDensity;
             housingDensity = usCensus.housingDensity;
       }
-      public censusDAO(String state, int areaInSqKm, double densityPerSqKm, double waterArea, String stateCode) {
+      public CensusDAO(String state, int areaInSqKm, double densityPerSqKm, double waterArea, String stateCode) {
             this.state = state;
             this.areaInSqKm = areaInSqKm;
             this.densityPerSqKm = densityPerSqKm;

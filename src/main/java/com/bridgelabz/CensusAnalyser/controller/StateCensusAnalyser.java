@@ -1,5 +1,6 @@
 package com.bridgelabz.CensusAnalyser.controller;
 import com.bridgelabz.CensusAnalyser.adaptor.CensusAdaptorFactory;
+import com.bridgelabz.CensusAnalyser.dao.CensusDAO;
 import com.bridgelabz.CensusAnalyser.exception.CensusAnalyserException;
 import com.bridgelabz.CensusAnalyser.models.*;
 import com.google.gson.Gson;
@@ -7,15 +8,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 public class StateCensusAnalyser {
       public enum Country {INDIA, US}
-      List<censusDAO> collect = null;
-      Map<String, censusDAO> censusCSVMap = null;
-      Map<SortField, Comparator<censusDAO>> sortMap;
+      List<CensusDAO> collect = null;
+      Map<String, CensusDAO> censusCSVMap = null;
       public StateCensusAnalyser() {
-            this.collect = new ArrayList<censusDAO>() ;
-            this.censusCSVMap = new HashMap<String, censusDAO>();
-            this.sortMap = new HashMap<>();
+            this.collect = new ArrayList<CensusDAO>() ;
+            this.censusCSVMap = new HashMap<String, CensusDAO>();
       }
-
       /**
        * to load India and US census data
        * @param country
@@ -35,45 +33,45 @@ public class StateCensusAnalyser {
             String sortedStateCensusJson = "";
             ArrayList<Object> censusDTOs = new ArrayList<>();
             switch(sortingParam){
-                  case ParamConstants.STATE :
+                  case ParameterConstants.STATE :
                         censusDTOs = this.censusCSVMap.values()
-                                .stream().sorted((censusDAO c1, censusDAO c2) -> c1.state.compareTo(c2.state))
+                                .stream().sorted((CensusDAO c1, CensusDAO c2) -> c1.state.compareTo(c2.state))
                                 .map(censusDAO -> censusDAO.getSpecificCensusData(country))
                                 .collect(Collectors.toCollection(ArrayList::new));
                         break;
-                  case ParamConstants.POPULAS_STATE :
+                  case ParameterConstants.POPULATION_STATE:
                         censusDTOs = this.censusCSVMap.values()
-                                .stream().sorted((censusDAO c1, censusDAO c2) -> c2.population.compareTo(c1.population))
+                                .stream().sorted((CensusDAO c1, CensusDAO c2) -> c2.population.compareTo(c1.population))
                                 .map(censusDAO -> censusDAO.getSpecificCensusData(country))
                                 .collect(Collectors.toCollection(ArrayList::new));
                         break;
-                  case ParamConstants.POPULATION_DENSITY :
+                  case ParameterConstants.POPULATION_DENSITY :
                         censusDTOs = this.censusCSVMap.values()
-                                .stream().sorted((censusDAO c1, censusDAO c2) -> c2.densityPerSqKm.compareTo(c1.densityPerSqKm))
+                                .stream().sorted((CensusDAO c1, CensusDAO c2) -> c2.densityPerSqKm.compareTo(c1.densityPerSqKm))
                                 .map(censusDAO -> censusDAO.getSpecificCensusData(country))
                                 .collect(Collectors.toCollection(ArrayList::new));
                         break;
-                  case ParamConstants.AREA :
+                  case ParameterConstants.AREA :
                         censusDTOs = this.censusCSVMap.values()
-                                .stream().sorted((censusDAO c1, censusDAO c2) -> c2.area.compareTo(c1.area))
+                                .stream().sorted((CensusDAO c1, CensusDAO c2) -> c2.area.compareTo(c1.area))
                                 .map(censusDAO -> censusDAO.getSpecificCensusData(country))
                                 .collect(Collectors.toCollection(ArrayList::new));
                         break;
-                  case ParamConstants.AREA_IN_SQR_KM :
+                  case ParameterConstants.AREA_IN_SQR_KM :
                         censusDTOs = this.censusCSVMap.values()
-                                .stream().sorted((censusDAO c1, censusDAO c2) -> c2.areaInSqKm.compareTo(c1.areaInSqKm))
+                                .stream().sorted((CensusDAO c1, CensusDAO c2) -> c2.areaInSqKm.compareTo(c1.areaInSqKm))
                                 .map(censusDAO -> censusDAO.getSpecificCensusData(country))
                                 .collect(Collectors.toCollection(ArrayList::new));
                         break;
-                  case ParamConstants.US_POPULATION_DENSITY :
+                  case ParameterConstants.US_POPULATION_DENSITY :
                         censusDTOs = this.censusCSVMap.values()
-                                .stream().sorted((censusDAO c1, censusDAO c2) -> c2.populationDensity.compareTo(c1.populationDensity))
+                                .stream().sorted((CensusDAO c1, CensusDAO c2) -> c2.populationDensity.compareTo(c1.populationDensity))
                                 .map(censusDAO -> censusDAO.getSpecificCensusData(country))
                                 .collect(Collectors.toCollection(ArrayList::new));
                         break;
-                  case ParamConstants.US_POPULATION_STATE_ID :
+                  case ParameterConstants.US_POPULATION_STATE_ID :
                         censusDTOs = this.censusCSVMap.values()
-                                .stream().sorted((censusDAO c1, censusDAO c2) -> c2.stateId.compareTo(c1.stateId))
+                                .stream().sorted((CensusDAO c1, CensusDAO c2) -> c2.stateId.compareTo(c1.stateId))
                                 .map(censusDAO -> censusDAO.getSpecificCensusData(country))
                                 .collect(Collectors.toCollection(ArrayList::new));
                         break;
