@@ -1,4 +1,4 @@
-package com.bridgelabz.CensusAnalyser.utilities;
+package com.bridgelabz.CensusAnalyser.adaptor;
 
 import com.bridgelabz.CensusAnalyser.controller.StateCensusAnalyser;
 import com.bridgelabz.CensusAnalyser.exception.CensusAnalyserException;

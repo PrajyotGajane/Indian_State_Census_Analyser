@@ -33,4 +33,13 @@ public class USCensus {
                     ", housingDensity='" + housingDensity + '\'' +
                     '}';
       }
+      public USCensus(){}
+      public USCensus(String state, String stateId, Double area, Integer population, Double populationDensity, Double totalArea) {
+            this.state = state;
+            this.area = area;
+            this.stateId = stateId;
+            this.population = population;
+            this.populationDensity = populationDensity;
+            this.area = totalArea;
+      }
 }

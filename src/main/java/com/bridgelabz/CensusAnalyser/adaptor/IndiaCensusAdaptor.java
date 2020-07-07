@@ -1,10 +1,8 @@
-package com.bridgelabz.CensusAnalyser.utilities;
+package com.bridgelabz.CensusAnalyser.adaptor;
 
-import com.bridgelabz.CensusAnalyser.controller.StateCensusAnalyser;
 import com.bridgelabz.CensusAnalyser.exception.CensusAnalyserException;
 import com.bridgelabz.CensusAnalyser.models.CSVStateCensus;
 import com.bridgelabz.CensusAnalyser.models.CSVStateCode;
-import com.bridgelabz.CensusAnalyser.models.USCensus;
 import com.bridgelabz.CensusAnalyser.models.censusDAO;
 import com.bridgelabz.CensusAnalyser.service.CSVBuilderException;
 import com.bridgelabz.CensusAnalyser.service.CSVBuilderFactory;
@@ -18,7 +16,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 
-public class IndiaCensusAdaptor extends CensusAdaptor{
+public class IndiaCensusAdaptor extends CensusAdaptor {
       @Override
       public Map<String, censusDAO> loadCensusData(String... csvFilePath) {
             Map<String, censusDAO> censusStateMap = super.loadCensusData(CSVStateCensus.class, csvFilePath[0]);
@@ -32,7 +30,7 @@ public class IndiaCensusAdaptor extends CensusAdaptor{
                   Iterator<CSVStateCode> censusCSVIterator = csvBuilder.getCSVFileIterator(reader, CSVStateCode.class);
                   Iterable<CSVStateCode> csvIterable = () -> censusCSVIterator;
                   StreamSupport.stream(csvIterable.spliterator(), false).filter(csvState -> censusCSVMap.get(csvState.stateName) != null)
-                          .forEach(csvState -> censusCSVMap.get(csvState.stateName).stateId = csvState.stateCode);
+                          .forEach(csvState -> censusCSVMap.get(csvState.stateName).stateCode = csvState.stateCode);
                   return censusCSVMap.size();
             } catch (IOException | CSVBuilderException e) {
                   throw new CensusAnalyserException(e.getMessage(),
